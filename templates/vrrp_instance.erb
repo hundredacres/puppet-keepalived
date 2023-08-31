@@ -1,5 +1,7 @@
 vrrp_instance <%= @_name %> {
+  <%- if @interface -%>
   interface                 <%= @interface %>
+  <%- end -%>
   state                     <%= @state %>
   virtual_router_id         <%= @virtual_router_id %>
   priority                  <%= @priority %>

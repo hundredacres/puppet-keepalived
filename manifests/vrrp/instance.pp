@@ -199,10 +199,10 @@
 # @param collect_unicast_peers
 #
 define keepalived::vrrp::instance (
-  $interface,
   Integer[1,254] $priority,
   $state,
   Integer[1,255] $virtual_router_id,
+  $interface                                                              = undef,
   $virtual_ipaddress                                                      = undef,
   $auth_type                                                              = undef,
   Optional[Variant[String, Sensitive[String]]] $auth_pass                 = undef,
@@ -262,7 +262,7 @@ define keepalived::vrrp::instance (
       order   => "100-${_name}-010",
     }
 
-    if $collect_unicast_peers {
+    if $collect_unicast_peers and $interface {
       if $unicast_source_ip != undef {
         $unicast_src = $unicast_source_ip
       } else {
